@@ -1,0 +1,35 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+}
+*::after, *::before{
+    box-sizing: inherit;
+}
+main{
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(60deg, rgba(125, 125, 255, .4), rgba(15, 0, 255, .8));
+    text-align: center;
+    padding: 0 50px;
+}
+.button{
+    background: rgba(255, 255, 255, .3);
+    flex: 1 1 100px;
+    margin: 2px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all .07s linear;
+    font-size: 20px;
+}
+
+.button span{
+    color: hsl(0, 70%, 50%);
+    font-size: 15px;
+}
+
+.playing{
+    transform: scale(1.5);
+    border: 5px solid rgba(255, 255, 0, .9);
+}
