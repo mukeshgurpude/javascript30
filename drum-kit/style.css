@@ -16,7 +16,7 @@ main{
 }
 .button{
     background: rgba(255, 255, 255, .3);
-    flex: 1 1 100px;
+    flex: 1 .5 100px;
     margin: 2px;
     padding: 10px;
     cursor: pointer;
@@ -30,6 +30,11 @@ main{
 }
 
 .playing{
-    transform: scale(1.5);
+    transform: scale(1.1);
     border: 5px solid rgba(255, 255, 0, .9);
+}
+@media(max-width: 600px){
+    main{
+        flex-wrap: wrap;
+    }
 }

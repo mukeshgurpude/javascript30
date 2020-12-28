@@ -1,0 +1,90 @@
+:root{
+    --clock-size: 50vh;
+    --hand-width: 6px;
+    --border-width: 20px;
+    --arrow-width: 10px;
+}
+body{
+    box-sizing: border-box;
+}
+*, *::after, *::before{
+    box-sizing: inherit;
+}
+
+body{
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(70deg, rgba(255, 0, 0, .4), hsl(200, 100%, 50%), hsl(135, 100%, 40%));
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+main{
+    width: var(--clock-size);
+    height: var(--clock-size);
+    border-radius: 50%;
+    position: relative;
+    padding: 2rem;
+    border: var(--border-width) solid hsl(200, 20%, 40%);
+    margin: auto;
+    background: url('images/clock-bg.png');
+    background-size: 125%;
+    background-position: center;
+    box-shadow: 0 0 10px 5px hsl(200, 20%, 80%);
+}
+.clock-face{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-3px);
+}
+.hand{
+    width: 50%;
+    height: var(--hand-width);
+    background: rgba(0, 0, 0, .6);
+    border-radius: 2px;
+
+    position: absolute;
+    top: 50%;
+    transform-origin: 100%;
+}
+.hour-hand{
+    width: 20%;
+    left: calc(50% - 20%);
+    background: rgba(0, 0, 0, 1);
+    z-index: 2;
+}
+
+.minute-hand{
+    width: 30%;
+    left: 20%;
+    background: rgba(0, 0, 0, .8);
+    z-index: 1;
+}
+.hand::before{
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: -100%;
+
+    background: transparent;
+    border-top: var(--arrow-width) solid transparent;
+    border-bottom: var(--arrow-width) solid transparent;
+
+    border-right: var(--arrow-width) solid rgba(0, 0, 0, 1);
+    width: 0;
+    height: 0;
+}
+
+@media (max-height: 600px){
+    :root{
+        --border-width: 5px;
+        --arrow-width: 5px;
+        --hand-width: 4px;
+    }
+    .hand::before{
+        left: -4px;
+        top: -80%;
+    }
+}
