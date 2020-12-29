@@ -1,0 +1,21 @@
+:root{
+    --color: rgba(0, 0, 0, .6);
+    --spread: 2px;
+    --blur: 10px;
+}
+body{
+    margin: 0;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100vh;
+    height: 500px;
+    padding: 1vw;
+}
+img{
+    /* filter: drop-shadow(0 0 var(--blur) var(--color)); */
+    width: 50%;
+    box-shadow: 0 0 var(--blur) var(--spread) var(--color);
+}

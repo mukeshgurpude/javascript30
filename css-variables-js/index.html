@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulate CSS Variables</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <form class="controls">
+            <label for="size">Size</label>
+            <input type="range" id="size" max="100" min="10" value="50" data-image="width">
+
+            <label for="radius">Radius</label>
+            <input type="range" id="radius" value="0" max="50" data-image="border-radius">
+
+            <label for="blur">Shadow Blur</label>
+            <input type="range" id="blur" data-property="blur" data-unit="px">
+            
+            <label for="spread">Shadow Spread</label>
+            <input type="range" id="spread" data-property="spread" min="0" max="20" data-unit="px">
+            
+            <label for="color">Shadow Color</label>
+            <input type="color" id="color" data-property="color">
+        </form>
+
+        <div class="wrapper">
+            <img src="../css-variables\images\profile.png" alt="">
+        </div>
+    </main>
+
+    <script>
+        const image = document.querySelector('img');
+        const controls = document.querySelectorAll('.controls input');
+        controls.forEach(input => {
+            input.addEventListener('mousemove', function () {
+                if(this.dataset.image) image.style[`${this.dataset.image}`] = this.value + "%";
+                else if(this.dataset.property){
+                    document.documentElement.style.setProperty("--" + this.dataset.property, this.value + (this.dataset.unit||""));
+                }
+                else console.log('Not Working');
+            })
+        })
+    </script>
+</body>
+
+</html>
