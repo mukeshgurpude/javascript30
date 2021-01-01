@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Image gallery with flex</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+    <body>
+        <main id="gallery">
+            <section id="display"></section>
+            <section id="chooser">
+                <section class="panel panel1"></section>
+                <section class="panel panel2"></section>
+                <section class="panel panel3"></section>
+                <section class="panel panel4"></section>
+                <section class="panel panel5"></section>
+            </section>
+        </main>
+        <script type="text/javascript">
+            const panels = document.querySelectorAll('.panel');
+            const display = document.querySelector("#display");
+
+            const fixed = "kX9lb7LUDWc";
+            
+            const images = ['J2HlA2G0BHE', 'U8uTsF3j9kc', 'zh4bFkFos3A', 'y2uL3LU0v-I', ''];
+
+            (_=>{
+                panels.forEach((panel, i)=>{
+                    panel.style.backgroundImage = `url("https://source.unsplash.com/${images[i]||"random"}")`;
+                })
+            })()
+
+            let lastClick = -1;
+            function resize(i){
+                if(i==lastClick){display.classList.toggle('active');}
+                document.documentElement.style.setProperty('--changed', `url("https://source.unsplash.com/${images[i]||"random"}")`);
+                lastClick = i;
+            }
+            
+            panels.forEach((panel, i)=>panel.addEventListener('click', function(){resize(i)}))
+        </script>
+    </body>
+</html>
