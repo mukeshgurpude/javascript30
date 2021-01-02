@@ -1,0 +1,77 @@
+*{
+    box-sizing: border-box;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+header{
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+header>*{flex: 0 0 100px;}
+.logo{
+    background-image: url(" https://source.unsplash.com/random?pikachu ");
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+}
+
+#image{
+    height: 50vh;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.type{
+    background-color: rgba(0, 0, 0, .3);
+    border-radius: .2em;
+    margin: .2em;
+    padding: .2em;
+}
+
+#more{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.suggestion{
+    display: none;
+    transition: all 1s cubic-bezier(0.39, 0.575, 0.565, 1) linear;
+    margin: 10px;
+    flex: 0 0 calc(33% - 20px);
+    height: 200px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .3);
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 10em;
+}
+.suggestion .name{
+    visibility: hidden;
+}
+.suggestion:hover .name{
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, .7);
+    visibility: visible;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.name button{
+    height: 40px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .3);
+    margin: 1em;
+    
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    cursor: pointer;
+}
+.suggestion:hover{
+    transform: scale(1.1);
+}
+
+/* TODO: Pokedex like styling */

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeDex</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo"></div>
+        <span class="logo-text">Pokemon</span>
+        <label><input type="search"><button class="load">Catch Pokemon</button></label>
+    </header>
+    <main>
+        <h1></h1>
+        <section id="image"></section>
+        <section id="basic-details"></section>
+        <section id="more">
+            <section class="suggestion">
+                <div class="name"></div>
+            </section>
+            <section class="suggestion">
+                <div class="name"></div>
+            </section>
+            <section class="suggestion">
+                <div class="name"></div>
+            </section>
+            <section class="suggestion">
+                <div class="name"></div>
+            </section>
+            <section class="suggestion">
+                <div class="name"></div>
+            </section>
+        </section>
+    </main>
+    <footer></footer>
+    <script type="text/javascript">
+
+        const endpoint = "https://pokeapi.co/api/v2/pokemon/";
+        const more = document.querySelectorAll('.suggestion');
+
+        function catchPokemon(){
+            fetch(endpoint + ((this.value && this.value.toLowerCase() )|| this.firstElementChild.innerHTML.toLowerCase())).then(response=>response.json()).then(
+                data=>{
+                    document.querySelector('main>h1').innerHTML = `You caught ${data.name}`;
+                    document.getElementById('image').style.backgroundImage = `url("https://pokeres.bastionbot.org/images/pokemon/${data.id}.png")`;
+                    let details = `<h2>${data.name}</h2>`;
+                    data.types.forEach(type=>{
+                        details += `<span class="type">${type.type.name}</span>`;
+                    })
+                    document.getElementById('basic-details').innerHTML = details;
+                    generateMore(data.id);
+                }).catch(function(){;
+                    const main = document.querySelector('main>h1');
+                    main.innerHTML = "Pokemon not found";
+                    // TODO: change display to not found
+                    // Remove name
+                })
+            search.value = '';
+        }
+
+        function addToMore(id, i){
+            fetch(endpoint + id).then(response=>response.json()).then(data=>{
+                console.log(more[i])
+                more[i].style.display = "block";
+                more[i].style.backgroundImage = `url("https://pokeres.bastionbot.org/images/pokemon/${id}.png")`
+                more[i].firstElementChild.innerHTML = `<button>${data.name}</button>`;
+
+            }).catch(function(){
+                more[i].style.display = "none";
+            });
+        }
+
+        const generateMore = id =>{
+            const arr = [];
+            let i = -3;
+            while(arr.length<5){
+                if((id + ++i) > 0 && ((id+i)!=id)) arr.push(id+i);
+            }
+            arr.forEach((id, i)=>{
+                addToMore(id, i);
+            })
+        }
+
+        const search = document.querySelector('input[type=search]');
+        search.addEventListener('change', catchPokemon);
+        const buttons = document.querySelectorAll('.suggestion .name');
+        buttons.forEach(button=>button.addEventListener('click', catchPokemon))
+    </script>
+</body>
+</html>
