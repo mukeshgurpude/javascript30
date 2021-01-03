@@ -9,62 +9,85 @@
 <body>
     <header>
         <div class="logo"></div>
-        <span class="logo-text">Pokemon</span>
-        <label><input type="search"><button class="load">Catch Pokemon</button></label>
+        <span class="logo-text">Pokemon Searcher</span>
+        <label><input list="search" type="search" autofocus placeholder="e.g. Pikachu"><button class="load">Search</button></label>
+        <datalist id="search">
+        </datalist>
     </header>
+    <h1>Search for a pokemon above</h1>
+    <span id="loader"></span>
     <main>
-        <h1></h1>
         <section id="image"></section>
         <section id="basic-details"></section>
-        <section id="more">
-            <section class="suggestion">
-                <div class="name"></div>
-            </section>
-            <section class="suggestion">
-                <div class="name"></div>
-            </section>
-            <section class="suggestion">
-                <div class="name"></div>
-            </section>
-            <section class="suggestion">
-                <div class="name"></div>
-            </section>
-            <section class="suggestion">
-                <div class="name"></div>
-            </section>
-        </section>
     </main>
+    <h2 style="display: none;">You may also like</h2>
+    <section id="more">
+        <section class="suggestion">
+            <div class="name"></div>
+        </section>
+        <section class="suggestion">
+            <div class="name"></div>
+        </section>
+        <section class="suggestion">
+            <div class="name"></div>
+        </section>
+        <section class="suggestion">
+            <div class="name"></div>
+        </section>
+        <section class="suggestion">
+            <div class="name"></div>
+        </section>
+    </section>
     <footer></footer>
     <script type="text/javascript">
 
+        function handleImage(url, element){
+            const img = document.createElement('img');
+            img.onerror = function(){
+                element.style.backgroundImage = `url("images/unavailable.png")`;
+            }
+            img.src = url;
+            img.remove();
+        }
+
         const endpoint = "https://pokeapi.co/api/v2/pokemon/";
         const more = document.querySelectorAll('.suggestion');
+        const heading = document.querySelector('h1');
+        const main = document.querySelector('main');
+        const loader = document.querySelector('#loader')
 
         function catchPokemon(){
-            fetch(endpoint + ((this.value && this.value.toLowerCase() )|| this.firstElementChild.innerHTML.toLowerCase())).then(response=>response.json()).then(
+            let name = ((this.value && this.value.toLowerCase() )|| this.firstElementChild.innerHTML.toLowerCase());
+            loader.style.display = 'block';
+            fetch(endpoint + name).then(response=>response.json()).then(
                 data=>{
-                    document.querySelector('main>h1').innerHTML = `You caught ${data.name}`;
+                    document.querySelector('h1').innerHTML = `${data.name} found`;
                     document.getElementById('image').style.backgroundImage = `url("https://pokeres.bastionbot.org/images/pokemon/${data.id}.png")`;
+                    handleImage(`https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`, document.getElementById("image"));
                     let details = `<h2>${data.name}</h2>`;
                     data.types.forEach(type=>{
                         details += `<span class="type">${type.type.name}</span>`;
                     })
+                    details += `<a target="_blank" class="know" href="https://bulbapedia.bulbagarden.net/w/index.php?title=${data.name}">Know More</a>`;
                     document.getElementById('basic-details').innerHTML = details;
                     generateMore(data.id);
+                    main.style.display = 'flex';
+                    loader.style.display = 'none';
+
                 }).catch(function(){;
-                    const main = document.querySelector('main>h1');
-                    main.innerHTML = "Pokemon not found";
-                    // TODO: change display to not found
-                    // Remove name
+                    heading.innerHTML = `${name} not found`;
+
+                    main.style.display = 'none';
+                    loader.style.display = 'none';
                 })
             search.value = '';
         }
 
         function addToMore(id, i){
             fetch(endpoint + id).then(response=>response.json()).then(data=>{
-                console.log(more[i])
                 more[i].style.display = "block";
-                more[i].style.backgroundImage = `url("https://pokeres.bastionbot.org/images/pokemon/${id}.png")`
+                more[i].style.backgroundImage = `url("https://pokeres.bastionbot.org/images/pokemon/${id}.png")`;
+                handleImage(`https://pokeres.bastionbot.org/images/pokemon/${id}.png`, more[i]);
                 more[i].firstElementChild.innerHTML = `<button>${data.name}</button>`;
 
             }).catch(function(){
@@ -78,6 +101,7 @@
             while(arr.length<5){
                 if((id + ++i) > 0 && ((id+i)!=id)) arr.push(id+i);
             }
+            document.querySelector('main+h2').style.display="inline-block";
             arr.forEach((id, i)=>{
                 addToMore(id, i);
             })
@@ -87,6 +111,26 @@
         search.addEventListener('change', catchPokemon);
         const buttons = document.querySelectorAll('.suggestion .name');
         buttons.forEach(button=>button.addEventListener('click', catchPokemon))
+
+
+        // Generate list for search box
+        const pokemons = [];
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=-1").then(list=>list.json()).then(
+            list=>pokemons.push(...list.results.map(pokemon=>pokemon.name))
+        )
+        const list = document.getElementById('search');
+
+        function filterMatches(match, pokemons){
+            return pokemons.filter(name=>name.toLowerCase().includes(match)).sort();
+        }
+        function showMatches(){
+            if(!this.value) return;
+            const filtered = filterMatches(this.value.toLowerCase(), pokemons).slice(0, 5);
+            list.innerHTML = filtered.reduce((options, name)=>options + `<option>${name}</option>`, "")
+        }
+
+        search.addEventListener('keyup', showMatches);
+
     </script>
 </body>
 </html>

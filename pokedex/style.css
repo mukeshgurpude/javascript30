@@ -1,19 +1,81 @@
 *{
     box-sizing: border-box;
-    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 300ms cubic-bezier(0.01, 0.47, 1, 1.6);
+}
+body{
+    margin: 0;
+    /* padding: 0 8px; */
+}
+#loader{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+
+    height: 5em;
+    width: 5em;
+    border: 1em dotted rgba(125, 125, 125, .8);
+    border-radius: 50%;
+    animation: revolve 1s infinite forwards;
+
+    z-index: 5;
 }
 header{
     height: 10vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    box-shadow:  0 0 1px 2px rgba(125, 125, 125, .8);
+    min-height: 100px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, .8);
+    flex-wrap: wrap;
+
+    position: sticky;
+    top: 0;
 }
-header>*{flex: 0 0 100px;}
+header>*{flex: 0 0 auto; margin: 5px;}
 .logo{
     background-image: url(" https://source.unsplash.com/random?pikachu ");
     background-position: center;
     background-size: cover;
     height: 100%;
+    flex-basis: 100px;
+}
+.logo-text{font-family: Verdana, Geneva, Tahoma, sans-serif;font-weight: bold;text-transform: uppercase;text-decoration: wavy;}
+
+header>label{
+    display: flex;
+    color: red;
+    flex-basis: 100px;
+}
+header>label>*{
+    margin: 2px;
+}
+
+h1{
+    text-align: center;
+}
+
+main{
+    display: none;
+    margin: auto;
+    width: 80%;
+    max-width: 800px;
+    grid-template-columns: 1fr 1fr;
+    flex-wrap: wrap;
+    align-items: center;
+    text-transform: capitalize;
+    padding: 20px;
+    border: 2px outset #000;
+    border-radius: 10px;
+
+    box-shadow: inset 0 0 5px 20px rgba(255, 0, 0, 1), inset 0 0 0 21px rgba(0, 0, 0, .9);
+}
+
+main>*{
+    flex: 1 1 300px;
 }
 
 #image{
@@ -23,11 +85,36 @@ header>*{flex: 0 0 100px;}
     background-repeat: no-repeat;
 }
 
+#basic-details{
+    padding: 0 0 3em 3em;
+    border: 1em ridge;
+    border-bottom-left-radius: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: inset 0 0 0 5px rgba(125, 125, 125, .8);
+}
+#basic-details>h2{
+    flex-basis: 100%;
+}
+
 .type{
     background-color: rgba(0, 0, 0, .3);
     border-radius: .2em;
     margin: .2em;
     padding: .2em;
+}
+.know{
+    margin-right: 20px;
+    text-decoration: none;
+    color: hsl(125, 100%, 100%);
+    font-weight: 400;
+    background-color: rgba(0, 0, 0, 1);
+    text-align: center;
+    padding: 1em;
+    border-radius: 1em;
 }
 
 #more{
@@ -37,7 +124,6 @@ header>*{flex: 0 0 100px;}
 }
 .suggestion{
     display: none;
-    transition: all 1s cubic-bezier(0.39, 0.575, 0.565, 1) linear;
     margin: 10px;
     flex: 0 0 calc(33% - 20px);
     height: 200px;
@@ -50,6 +136,7 @@ header>*{flex: 0 0 100px;}
 }
 .suggestion .name{
     visibility: hidden;
+    transition-duration: 10ms;
 }
 .suggestion:hover .name{
     width: 100%;
@@ -70,8 +157,16 @@ header>*{flex: 0 0 100px;}
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     cursor: pointer;
 }
-.suggestion:hover{
+.suggestion:hover, .suggestion:focus{
     transform: scale(1.1);
+    border: 5px ridge rgba(0, 0, 0, .2);
 }
 
-/* TODO: Pokedex like styling */
+@keyframes revolve{
+    from{
+        transform: rotate(1deg);
+    }
+    to{
+        transform: rotate(359deg);
+    }
+}
