@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Paint</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        form{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: fixed;
+            left: 5px;
+            top: 5px;
+            padding: 5px;
+            box-shadow: 0 0 10px 2px rgba(0, 0, 0, .8);
+        }
+        form>*:not(:first-child){
+            margin-left: .5em;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="draw"></canvas>
+    <form id="controls" onsubmit="return false;">
+        <label>Line Color: <input type="color"></label>
+        <label>Line Width: <input type="number" max=50 min="10" placeholder="variable"></label>
+        <input type="reset" value="Default Pattern" onclick="colorChosed=false;widthChosed=false;">
+        <input type="button" value="Clear Board" onclick="ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)">
+    </form>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
