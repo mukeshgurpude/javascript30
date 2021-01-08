@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Multiple checkbox with Shift Key</title>
+        <style type="text/css">
+            body{margin: 0; display: flex;align-items: center;justify-content: center;}
+            form{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content:center;
+                min-height: 100vh;
+            }
+            input, label{margin: 5px; padding: 1px;}
+        </style>
+    </head>
+    <body>
+        <form onsubmit="e.preventdefault;return false">
+            <label><input type="checkbox">Item 1</label>
+            <label><input type="checkbox">Item 2</label>
+            <label><input type="checkbox">Item 3</label>
+            <label><input type="checkbox">item 4</label>
+            <label><input type="checkbox">Item 5</label>
+            <label><input type="checkbox">item 6</label>
+            <label><input type="checkbox">item 7</label>
+            <label><input type="checkbox">Item 8</label>
+            <label><input type="checkbox">Item 9</label>
+        </form>
+        <script type="text/javascript">
+            let lastChecked;
+            const checkboxes = document.querySelectorAll('input[type=checkbox');
+            function selectMultiple(e){
+                let inside = false;
+                if(e.shiftKey && this.checked){
+                    checkboxes.forEach(button=>{
+                        if(button==this || button==lastChecked){
+                            inside = !inside;
+                        }
+                        if(inside){
+                            button.checked = true;
+                        }
+                    })
+                }
+                lastChecked = this;
+            }
+
+            checkboxes.forEach(button=>{
+                button.addEventListener('click', selectMultiple);
+            })
+        </script>
+    </body>
+</html>
