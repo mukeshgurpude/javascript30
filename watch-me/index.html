@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Custom Video Player</title>
+        <link rel="stylesheet" href="player.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <main>
+            <video src="everything_has_changed.mp4"></video>
+            <div id="controls">
+                <div id="progress">
+                    <div id="progress_filled"></div>
+                </div>
+                <button class="player__button toggle play"></button>
+                <label class="slide">
+                    <span class="material-icons">volume_down</span>
+                    <input type="range" class="player__slider" name="volume" step="0.1" min="0" max="1" value="0.8">
+                </label>
+                <label class="slide">
+                    <span class="material-icons">fast_forward</span>
+                    <input type="range" class="player__slider" name="playback" min="0.2" max="2" step="0.2" value="1">
+                </label>
+                <button data-skip="-10" class="player__button"><i class="material-icons">navigate_before</i><i class="material-icons">navigate_before</i>10s</button>
+                <button data-skip="+25" class="player__button">25s<i class="material-icons">navigate_next</i><i class="material-icons">navigate_next</i></button>
+            </div>
+        </main>
+        <script type="text/javascript" src="control.js"></script>
+    </body>
+</html>
