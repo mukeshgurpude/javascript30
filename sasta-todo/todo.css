@@ -1,0 +1,48 @@
+*{box-sizing: border-box;}
+body{
+    margin: 0;
+    /* background-image: url('https://source.unsplash.com/random?programming'); */
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 5em 0;
+}
+main{
+    /* position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%); */
+    background-color: rgba(255, 255, 255, .6);
+    border: .2em solid rgba(255, 255, 255, .8);
+    padding: 1em;
+    box-shadow: 0 0 2px .1px rgba(125, 125, 125);
+    min-width: 250px;
+    max-width: calc(100% - .4em);
+}
+main>h1{
+    font-size: 2em;
+    border-bottom: 3px solid #f00;
+    margin: 0;
+}
+.tasks{
+    display: flex;
+    flex-flow: wrap column;
+    gap: 2px;
+    margin-bottom: 1px;
+}
+.tasks>label{word-break: break-all;}
+.tasks input{vertical-align: text-bottom;}
+.tasks+span{display: none;}
+.tasks:empty+span{display: block;}
+.tasks input:checked+span{
+    text-decoration: line-through;
+}
+form.add{display: flex;margin-top: 1em;}
+.add>input:first-of-type, .add>input:first-of-type:hover, .add>input:first-of-type:focus{
+    outline: none;
+}
+.add>input:first-of-type{
+    margin-right: .5em;
+}
+.add>input:invalid+input[type=submit]{
+    cursor: no-drop;
+}
