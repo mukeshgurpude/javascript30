@@ -7,13 +7,14 @@
         <link href="todo.css" type="text/css" rel="stylesheet">
     </head>
     <body>
+        <span id="loader"></span>
         <main>
             <h1>Tasks</h1>
             <ul class="tasks"></ul>
             <span>No tasks here</span>
             <form class="add">
                 <label for="addItem"></label>
-                <input type="text" placeholder="Task Name" id="addItem" required disabled autocomplete="off">
+                <input type="text" placeholder="Task Name" id="addItem" required disabled autocomplete="off" autofocus>
                 <input type="submit" disabled>
             </form>
         </main>

@@ -1,22 +1,55 @@
 *{box-sizing: border-box;}
 body{
     margin: 0;
-    /* background-image: url('https://source.unsplash.com/random?programming'); */
+    background-image: url('https://source.unsplash.com/random?programming');
     background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 5em 0;
+    font-family: 'Segoe UI', "Opera", Geneva, Verdana, sans-serif;
 }
+#loader{
+    position: fixed;
+    width: 2em;
+    height: 2em;
+    /* background: linear-gradient(red, blue); */
+    border-radius: 50%;
+    border: 2px solid red;
+    border-top-color: hsl(0, 100%, 50%);
+    border-right-color: hsl(90, 100%, 50%);
+    border-bottom-color: hsl(180, 100%, 50%);
+    border-left-color: hsl(270, 100%, 50%);
+    z-index: 5;
+    animation: loading 350ms infinite linear;
+}
+.loaded>#loader{display: none;}
+#loader::after, #loader::before{
+    position: absolute;
+    top: calc(50% - 2px);
+    content: '';
+    width: 1em;
+    height: 4px;
+    background: linear-gradient(90deg,blue, red);
+}
+#loader::before{left: -100%;}
+#loader::after{right: -100%;}
 main{
     /* position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%); */
-    background-color: rgba(255, 255, 255, .6);
+    background-color: rgba(255, 255, 255, .3);
     border: .2em solid rgba(255, 255, 255, .8);
     padding: 1em;
     box-shadow: 0 0 2px .1px rgba(125, 125, 125);
     min-width: 250px;
     max-width: calc(100% - .4em);
+    transform: rotateY(90deg);
+    opacity: 0;
+    transition: transform 300ms linear, opacity 250ms ease;
+}
+.loaded main{
+    transform: rotateY(0deg);
+    opacity: 1;
 }
 main>h1{
     font-size: 2em;
@@ -29,20 +62,38 @@ main>h1{
     gap: 2px;
     margin-bottom: 1px;
 }
-.tasks>label{word-break: break-all;}
+.tasks>label{word-break: break-all;padding: 3px;font-weight: 600;}
 .tasks input{vertical-align: text-bottom;}
 .tasks+span{display: none;}
 .tasks:empty+span{display: block;}
 .tasks input:checked+span{
     text-decoration: line-through;
+    color: rgba(0, 0, 0, .9);
+    font-weight: normal;
 }
 form.add{display: flex;margin-top: 1em;}
-.add>input:first-of-type, .add>input:first-of-type:hover, .add>input:first-of-type:focus{
+input, inputhover, input:focus{
     outline: none;
 }
 .add>input:first-of-type{
     margin-right: .5em;
 }
+.add>input:first-of-type:focus{
+    transform: scaleY(1.1);
+    border: 2px solid rgba(100, 100, 255, 1);
+}
 .add>input:invalid+input[type=submit]{
     cursor: no-drop;
+}
+.add>[type=submit]{
+    padding: .2em;
+}
+
+@keyframes loading{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(359deg);
+    }
 }

@@ -28,7 +28,9 @@ function checkTheBox(e){
 add.addEventListener('submit', addItem);
 window.onload = ()=>{
     addToList(tasks, tasksHolder);
-    [...add.elements].forEach(input=>input.removeAttribute('disabled'))
+    [...add.elements].forEach(input=>input.removeAttribute('disabled'));
+    document.body.classList.add('loaded');
+    add.querySelector('input:first-of-type').focus()
 }
 tasksHolder.addEventListener('click', checkTheBox);
 window.onbeforeunload = _=>{
