@@ -1,7 +1,7 @@
 *{box-sizing: border-box;}
 body{
     margin: 0;
-    background-image: url('https://source.unsplash.com/random?programming');
+    /* background-image: url('https://source.unsplash.com/random?programming'); */
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -9,6 +9,10 @@ body{
     min-height: 100vh;
     padding: 5em 0;
     font-family: 'Segoe UI', "Opera", Geneva, Verdana, sans-serif;
+    background: repeating-linear-gradient(45deg,
+                                            rgba(125, 125, 125),
+                                            rgba(125, 125, 125, .8),
+                                            rgba(125, 125, 125));
 }
 #loader{
     position: fixed;
@@ -63,7 +67,7 @@ main>h1{
     margin-bottom: 1px;
 }
 .tasks>label{word-break: break-all;padding: 3px;font-weight: 600;}
-.tasks input{vertical-align: text-bottom;}
+.tasks input{margin-top: auto; margin-bottom: auto;}
 .tasks+span{display: none;}
 .tasks:empty+span{display: block;}
 .tasks input:checked+span{
@@ -71,12 +75,10 @@ main>h1{
     color: rgba(0, 0, 0, .9);
     font-weight: normal;
 }
-form.add{display: flex;margin-top: 1em;}
-input, inputhover, input:focus{
+form.add{display: flex;margin-top: 1em;gap: .5em;}
+form>input{flex: 1;}
+input, input:hover, input:focus, button, button:hover, button:focus{
     outline: none;
-}
-.add>input:first-of-type{
-    margin-right: .5em;
 }
 .add>input:first-of-type:focus{
     transform: scaleY(1.1);
@@ -87,6 +89,37 @@ input, inputhover, input:focus{
 }
 .add>[type=submit]{
     padding: .2em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+.control{
+    position: absolute;
+    margin: auto;
+    bottom: -5em;
+    display: flex;
+    flex-flow: wrap row;
+    gap: .2em;
+    left: 0;
+    right: 0;
+    animation: none;
+}
+.tasks:empty~.control{
+    display: none;
+}
+.control>button{
+    appearance: none;
+    border: 2px solid rgba(255, 0, 0, .6);
+    background: rgba(0, 0, 0, .7);
+    color: rgba(255, 255, 255, .8);
+    padding: .4em;
+    flex-grow: 1;
+    flex-basis: calc(50% - .4em);
+}
+button[name=clear]{flex-grow: 2;}
+.control>button:hover{
+    border-left: 4px solid #00f;
+    box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, .8);
 }
 
 @keyframes loading{
@@ -95,5 +128,19 @@ input, inputhover, input:focus{
     }
     to{
         transform: rotate(359deg);
+    }
+}
+
+@media(min-width: 700px){
+    .control{
+        position: fixed;
+        left: -20vw;
+        right: auto;
+        bottom: 1em;
+        flex-flow: nowrap column;
+    }
+    .control>button{
+        max-height: 50px;
+        padding: .5em;
     }
 }

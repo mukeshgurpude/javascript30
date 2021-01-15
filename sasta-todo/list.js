@@ -1,6 +1,7 @@
 const tasksHolder = document.querySelector('ul.tasks');
 const add = document.querySelector('form.add');
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+const controller = document.querySelector('.control')
 
 function addItem(e){
     e.preventDefault();
@@ -25,7 +26,10 @@ function checkTheBox(e){
     const idx = e.target.dataset.index;
     tasks[idx].done = !tasks[idx].done;
 }
+
+
 add.addEventListener('submit', addItem);
+
 window.onload = ()=>{
     addToList(tasks, tasksHolder);
     [...add.elements].forEach(input=>input.removeAttribute('disabled'));
@@ -36,3 +40,20 @@ tasksHolder.addEventListener('click', checkTheBox);
 window.onbeforeunload = _=>{
     if(tasks.length>0) localStorage.setItem('tasks', JSON.stringify(tasks))
 }
+
+// External buttons
+controller.querySelector('[name=check]').addEventListener('click', _=>{
+    tasks.forEach(task=>{task.done=true});
+    addToList(tasks, tasksHolder);
+})
+
+controller.querySelector('[name=uncheck]').addEventListener('click', _=>{
+    tasks.forEach(task=>{task.done=false});
+    addToList(tasks, tasksHolder);
+})
+
+controller.querySelector('[name=clear]').addEventListener('click', _=>{
+    tasks = [];
+    tasksHolder.innerHTML = '';
+    localStorage.removeItem('tasks');
+})
