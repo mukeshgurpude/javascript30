@@ -1,7 +1,6 @@
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recogniser = new SpeechRecognition();
 recogniser.interimResults = true;
-recogniser.continuous = true;
 recogniser.lang = 'en-US';
 
 let sentence = document.createElement('p');
@@ -10,7 +9,6 @@ notes.appendChild(sentence);
 
 recogniser.addEventListener('result', e=>{
     const data = e.results[0];
-    console.log(data[0].transcript)
     sentence.textContent = data[0].transcript;
     
     if(data.isFinal){
