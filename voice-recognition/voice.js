@@ -18,4 +18,4 @@ recogniser.addEventListener('result', e=>{
 })
 
 recogniser.addEventListener('end', recogniser.start);
-recogniser.start();
+window.onload = _ => {recogniser.start();};
