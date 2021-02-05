@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Follow along Dropdown</title>
+
+    <style>
+        *, *::after, *::before{box-sizing: border-box;}
+        body{position: relative; background-color: rgba(0, 0, 0, .8);color: #fff;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;margin: 0;}
+        :any-link:not(:hover){text-decoration: none;}
+        .dropdown img{width: 1.2em;height: 1.2em; vertical-align: middle;}
+        ul{list-style-type: none;}
+        ul li{position: relative;}
+        h2{margin: .5em 0;}
+        header>ul{display: flex;width: 100%; justify-content: center;gap: 2em;}
+        header li{padding: .5em;}
+        .dropdown{position: absolute; display: none; opacity: 0; padding: 1em;width: max-content;left: 50%; transform: translateX(-50%); transition: all .1s;}
+        .dropdown.active{display: flex;gap: 5px; flex-flow: nowrap column; color: initial;}
+        .dropdown.visible{opacity: 1;}
+        .dropdown>*:not(:first-child){display: flex;gap: 5px;}
+        #overlap{--bg-color: rgba(255, 255, 255, .8);background-color: var(--bg-color);position: absolute;width: 0;left: -100vw;z-index: -1;padding: 1em; transition: all .3s;}
+        #overlap>.arrow{--arrow-size: 1em;position: absolute;width: 0;height: 0;border: var(--arrow-size) solid transparent; border-bottom-color: var(--bg-color);top: calc(var(--arrow-size) * -2);left: 50%; transform: translateX(-50%);}
+    </style>
+
+</head>
+<body>
+    <header>
+        <ul>
+            <li>
+                <h2>Tech Stack</h2>
+                <div class="dropdown" id="">
+                    <h3>Here's what I work with ⬇</h3>
+                    <div class="stack">
+                        <img src="icons/python.svg" alt="">Python
+                    </div>
+                    <div class="stack">
+                        <img src="icons/html5.svg" alt="">HTML
+                    </div>
+                    <div class="stack">
+                        <img src="icons/js.svg" alt="">Javascript
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h2>Connect</h2>
+                <div class="dropdown">
+                    <h3>Talk to me on</h3>
+                    <a href="https://github.com/mukeshgurpude" class="social">
+                        <img src="icons/github.png" alt="">Github
+                    </a>
+                    <a href="https://linkedin.com/in/mukeshgurpude" class="social">
+                        <img src="icons/linkedin.png" alt="">Linkedin
+                    </a>
+                    <a href="https://twitter.com/mukeshgurpude" class="social">
+                        <img src="icons/twitter.png" alt="">Twitter
+                    </a>
+                    <a href="https://dev.to/mukeshgurpude" class="social">
+                        <img src="icons/dev.svg" alt="">DEV
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </header>
+    <div id="overlap"><div class="arrow"></div></div>
+    <script src="dropdown.js" async defer></script>
+</body>
+</html>
