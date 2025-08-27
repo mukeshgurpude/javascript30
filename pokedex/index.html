@@ -61,9 +61,10 @@
             loader.style.display = 'block';
             fetch(endpoint + name).then(response=>response.json()).then(
                 data=>{
-                    document.querySelector('h1').innerHTML = `${data.name} found`;
-                    document.getElementById('image').style.backgroundImage = `url("https://pokeres.bastionbot.org/images/pokemon/${data.id}.png")`;
-                    handleImage(`https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`, document.getElementById("image"));
+                    const imageUrl = data.sprites?.other?.dream_world?.front_default || data.sprites?.front_default;
+                    document.querySelector('h1').innerHTML = ``;
+                    document.getElementById('image').style.backgroundImage = `url("${imageUrl}")`;
+                    handleImage(imageUrl, document.getElementById("image"));
                     let details = `<h2>${data.name}</h2>`;
                     data.types.forEach(type=>{
                         details += `<span class="type">${type.type.name}</span>`;
@@ -74,7 +75,8 @@
                     main.style.display = 'flex';
                     loader.style.display = 'none';
 
-                }).catch(function(){;
+                }).catch(function(e){
+                    console.error(e)
                     heading.innerHTML = `${name} not found`;
 
                     main.style.display = 'none';
@@ -85,9 +87,10 @@
 
         function addToMore(id, i){
             fetch(endpoint + id).then(response=>response.json()).then(data=>{
+                const imageUrl = data.sprites?.other?.dream_world?.front_default || data.sprites?.front_default;
                 more[i].style.display = "block";
-                more[i].style.backgroundImage = `url("https://pokeres.bastionbot.org/images/pokemon/${id}.png")`;
-                handleImage(`https://pokeres.bastionbot.org/images/pokemon/${id}.png`, more[i]);
+                more[i].style.backgroundImage = `url("${imageUrl}")`;
+                handleImage(imageUrl, more[i]);
                 more[i].firstElementChild.innerHTML = `<button>${data.name}</button>`;
 
             }).catch(function(){
